@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VIN VALUE HUB Market Guide - Vehicle Valuation</title>
+    <title>Blackbook Vehicle Lookup</title>
     <link rel="stylesheet" href="/static/style.css">
 </head>
 <body>
@@ -11,332 +11,67 @@
         <!-- HEADER SECTION -->
         <header>
             <h1>VIN VALUE HUB</h1>
-            <p class="subtitle">Market guide</p>
+            <p class="subtitle">Fetch vehicle data by VIN and odometer reading</p>
             <nav>
-                <a href="/" class="active">Market Guide</a>
+                <a href="/" class="active">Vehicle Lookup</a>
                 <a href="/admin">Admin Settings</a>
             </nav>
         </header>
 
         <!-- MAIN CONTENT SECTION -->
         <main>
-            <!-- FILTERS SECTION (Main Card) -->
-            <div class="card filters-card">
-                <h2>Filters</h2>
-
-                <!-- Filters Grid Layout -->
-                <div class="filters-layout">
-                    <!-- Row 1: VIN Input, Year Range, Make, Model -->
-                    <div class="filters-row">
-                        <!-- VIN Input -->
-                        <div class="filter-group vin-group">
-                            <label for="vin">Decode 17-digit VIN</label>
-                            <div class="vin-input-wrapper">
-                                <input 
-                                    type="text" 
-                                    id="vin" 
-                                    name="vin" 
-                                    maxlength="17" 
-                                    placeholder="Optional"
-                                    class="vin-input"
-                                >
-                                <button type="button" id="decodeBtn" class="btn btn-decode">Decode VIN</button>
-                            </div>
-                        </div>
-
-                        <!-- Year Range Filter -->
-                        <div class="filter-group year-group">
-                            <label>Year</label>
-                            <div class="range-slider-container">
-                                <input type="range" id="yearMin" min="1980" max="2026" value="2024" class="range-slider">
-                                <div class="year-display">
-                                    <span class="range-label">< <span id="yearMinDisplay">1980</span> - <span id="yearMaxDisplay">2026</span>+</span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Make Filter -->
-                        <div class="filter-group make-group">
-                            <label for="make">Make</label>
-                            <select id="make" class="filter-select">
-                                <option value="">Select make</option>
-                                <option value="Acura">Acura</option>
-                                <option value="Alfa Romeo">Alfa Romeo</option>
-                                <option value="Audi">Audi</option>
-                                <option value="BMW">BMW</option>
-                                <option value="Bentley">Bentley</option>
-                                <option value="Buick">Buick</option>
-                                <option value="Cadillac">Cadillac</option>
-                                <option value="Chevrolet">Chevrolet</option>
-                                <option value="Chrysler">Chrysler</option>
-                                <option value="Dodge">Dodge</option>
-                                <option value="Ferrari">Ferrari</option>
-                                <option value="Fiat">Fiat</option>
-                                <option value="Ford">Ford</option>
-                                <option value="Genesis">Genesis</option>
-                                <option value="GMC">GMC</option>
-                                <option value="Honda">Honda</option>
-                                <option value="Hyundai">Hyundai</option>
-                                <option value="Infiniti">Infiniti</option>
-                                <option value="Jaguar">Jaguar</option>
-                                <option value="Jeep">Jeep</option>
-                                <option value="Kia">Kia</option>
-                                <option value="Lamborghini">Lamborghini</option>
-                                <option value="Land Rover">Land Rover</option>
-                                <option value="Lexus">Lexus</option>
-                                <option value="Lincoln">Lincoln</option>
-                                <option value="Maserati">Maserati</option>
-                                <option value="Mazda">Mazda</option>
-                                <option value="McLaren">McLaren</option>
-                                <option value="Mercedes-Benz">Mercedes-Benz</option>
-                                <option value="Mini">Mini</option>
-                                <option value="Mitsubishi">Mitsubishi</option>
-                                <option value="Nissan">Nissan</option>
-                                <option value="Porsche">Porsche</option>
-                                <option value="Ram">Ram</option>
-                                <option value="Rivian">Rivian</option>
-                                <option value="Rolls-Royce">Rolls-Royce</option>
-                                <option value="Subaru">Subaru</option>
-                                <option value="Tesla">Tesla</option>
-                                <option value="Toyota">Toyota</option>
-                                <option value="Volkswagen">Volkswagen</option>
-                                <option value="Volvo">Volvo</option>
-                            </select>
-                        </div>
-
-                        <!-- Model Filter -->
-                        <div class="filter-group model-group">
-                            <label for="model">Model</label>
-                            <select id="model" class="filter-select">
-                                <option value="">Select model</option>
-                                <option value="Accord">Accord</option>
-                                <option value="Altima">Altima</option>
-                                <option value="Camaro">Camaro</option>
-                                <option value="Camry">Camry</option>
-                                <option value="Challenger">Challenger</option>
-                                <option value="Charger">Charger</option>
-                                <option value="Cherokee">Cherokee</option>
-                                <option value="Civic">Civic</option>
-                                <option value="Colorado">Colorado</option>
-                                <option value="Corolla">Corolla</option>
-                                <option value="Corvette">Corvette</option>
-                                <option value="CR-V">CR-V</option>
-                                <option value="Cruze">Cruze</option>
-                                <option value="Durango">Durango</option>
-                                <option value="Elantra">Elantra</option>
-                                <option value="Equinox">Equinox</option>
-                                <option value="Escape">Escape</option>
-                                <option value="Explorer">Explorer</option>
-                                <option value="F-150">F-150</option>
-                                <option value="F-250">F-250</option>
-                                <option value="F-350">F-350</option>
-                                <option value="Fit">Fit</option>
-                                <option value="Forester">Forester</option>
-                                <option value="Frontier">Frontier</option>
-                                <option value="Fusion">Fusion</option>
-                                <option value="Grand Cherokee">Grand Cherokee</option>
-                                <option value="Highlander">Highlander</option>
-                                <option value="Impala">Impala</option>
-                                <option value="Malibu">Malibu</option>
-                                <option value="Maxima">Maxima</option>
-                                <option value="Model 3">Model 3</option>
-                                <option value="Model S">Model S</option>
-                                <option value="Model X">Model X</option>
-                                <option value="Model Y">Model Y</option>
-                                <option value="Mustang">Mustang</option>
-                                <option value="Odyssey">Odyssey</option>
-                                <option value="Outback">Outback</option>
-                                <option value="Pathfinder">Pathfinder</option>
-                                <option value="Pilot">Pilot</option>
-                                <option value="Prius">Prius</option>
-                                <option value="RAV4">RAV4</option>
-                                <option value="Rogue">Rogue</option>
-                                <option value="Sentra">Sentra</option>
-                                <option value="Sierra">Sierra</option>
-                                <option value="Silverado">Silverado</option>
-                                <option value="Sonata">Sonata</option>
-                                <option value="Sorento">Sorento</option>
-                                <option value="Sportage">Sportage</option>
-                                <option value="Suburban">Suburban</option>
-                                <option value="Tacoma">Tacoma</option>
-                                <option value="Tahoe">Tahoe</option>
-                                <option value="Taurus">Taurus</option>
-                                <option value="Terrain">Terrain</option>
-                                <option value="Tiguan">Tiguan</option>
-                                <option value="Traverse">Traverse</option>
-                                <option value="Trax">Trax</option>
-                                <option value="Tucson">Tucson</option>
-                                <option value="Tundra">Tundra</option>
-                                <option value="Wrangler">Wrangler</option>
-                                <option value="Yukon">Yukon</option>
-                            </select>
-                        </div>
+            <!-- INPUT FORM CARD -->
+            <div class="card">
+                <h2>Enter Vehicle Information</h2>
+                <form id="vehicleForm">
+                    <!-- VIN INPUT -->
+                    <div class="form-group">
+                        <label for="vin">VIN (17 characters)</label>
+                        <input 
+                            type="text" 
+                            id="vin" 
+                            name="vin" 
+                            maxlength="17" 
+                            required 
+                            placeholder="1HGBH41JXMN109186"
+                            pattern="[A-HJ-NPR-Z0-9]{17}"
+                            title="VIN must be exactly 17 alphanumeric characters"
+                        >
+                        <small class="help-text">Enter the 17-character Vehicle Identification Number</small>
                     </div>
 
-                    <!-- Row 2: Trim, Odometer, Province, Sale Date -->
-                    <div class="filters-row">
-                        <!-- Trim Filter -->
-                        <div class="filter-group trim-group">
-                            <label for="trim">Trim</label>
-                            <select id="trim" class="filter-select">
-                                <option value="">Select trim</option>
-                                <option value="Base">Base</option>
-                                <option value="S">S</option>
-                                <option value="SE">SE</option>
-                                <option value="SEL">SEL</option>
-                                <option value="SV">SV</option>
-                                <option value="SL">SL</option>
-                                <option value="SR">SR</option>
-                                <option value="L">L</option>
-                                <option value="LE">LE</option>
-                                <option value="LX">LX</option>
-                                <option value="LS">LS</option>
-                                <option value="LT">LT</option>
-                                <option value="LTZ">LTZ</option>
-                                <option value="EX">EX</option>
-                                <option value="EX-L">EX-L</option>
-                                <option value="XL">XL</option>
-                                <option value="XLE">XLE</option>
-                                <option value="XLT">XLT</option>
-                                <option value="XSE">XSE</option>
-                                <option value="Sport">Sport</option>
-                                <option value="Touring">Touring</option>
-                                <option value="Premium">Premium</option>
-                                <option value="Limited">Limited</option>
-                                <option value="Platinum">Platinum</option>
-                                <option value="Elite">Elite</option>
-                                <option value="Select">Select</option>
-                                <option value="Standard">Standard</option>
-                                <option value="Luxury">Luxury</option>
-                                <option value="Tech">Tech</option>
-                                <option value="Technology">Technology</option>
-                                <option value="Advance">Advance</option>
-                                <option value="A-Spec">A-Spec</option>
-                                <option value="R-Line">R-Line</option>
-                                <option value="S-Line">S-Line</option>
-                                <option value="M Sport">M Sport</option>
-                                <option value="AMG">AMG</option>
-                                <option value="RS">RS</option>
-                                <option value="GT">GT</option>
-                                <option value="SS">SS</option>
-                                <option value="ST">ST</option>
-                                <option value="SRT">SRT</option>
-                                <option value="Hellcat">Hellcat</option>
-                                <option value="Redeye">Redeye</option>
-                                <option value="TRD">TRD</option>
-                                <option value="TRD Pro">TRD Pro</option>
-                                <option value="TRD Sport">TRD Sport</option>
-                                <option value="TRD Off-Road">TRD Off-Road</option>
-                                <option value="Trailhawk">Trailhawk</option>
-                                <option value="Rubicon">Rubicon</option>
-                                <option value="Sahara">Sahara</option>
-                                <option value="Sport S">Sport S</option>
-                                <option value="Laredo">Laredo</option>
-                                <option value="Overland">Overland</option>
-                                <option value="Summit">Summit</option>
-                                <option value="High Country">High Country</option>
-                                <option value="Denali">Denali</option>
-                                <option value="AT4">AT4</option>
-                                <option value="King Ranch">King Ranch</option>
-                                <option value="Lariat">Lariat</option>
-                                <option value="Raptor">Raptor</option>
-                                <option value="Tremor">Tremor</option>
-                                <option value="Wildtrak">Wildtrak</option>
-                                <option value="Badlands">Badlands</option>
-                                <option value="Big Bend">Big Bend</option>
-                                <option value="Outer Banks">Outer Banks</option>
-                                <option value="Black Diamond">Black Diamond</option>
-                                <option value="Heritage">Heritage</option>
-                                <option value="Prestige">Prestige</option>
-                                <option value="Premium Plus">Premium Plus</option>
-                                <option value="Quattro">Quattro</option>
-                                <option value="N Line">N Line</option>
-                                <option value="Calligraphy">Calligraphy</option>
-                                <option value="SX">SX</option>
-                                <option value="EX-P">EX-P</option>
-                                <option value="Signature">Signature</option>
-                                <option value="Grand Touring">Grand Touring</option>
-                                <option value="Reserve">Reserve</option>
-                                <option value="Black Label">Black Label</option>
-                                <option value="Titanium">Titanium</option>
-                                <option value="SEL Premium">SEL Premium</option>
-                                <option value="SX Prestige">SX Prestige</option>
-                                <option value="Limited X">Limited X</option>
-                                <option value="Nismo">Nismo</option>
-                                <option value="Pro-4X">Pro-4X</option>
-                                <option value="Z71">Z71</option>
-                                <option value="RST">RST</option>
-                                <option value="Trail Boss">Trail Boss</option>
-                                <option value="Crew Cab">Crew Cab</option>
-                                <option value="Double Cab">Double Cab</option>
-                                <option value="Regular Cab">Regular Cab</option>
-                                <option value="Extended Cab">Extended Cab</option>
-                                <option value="Mega Cab">Mega Cab</option>
-                                <option value="Long Range">Long Range</option>
-                                <option value="Performance">Performance</option>
-                                <option value="Plaid">Plaid</option>
-                                <option value="AWD">AWD</option>
-                                <option value="4WD">4WD</option>
-                                <option value="2WD">2WD</option>
-                            </select>
-                        </div>
-
-                        <!-- Odometer Filter -->
-                        <div class="filter-group odometer-group">
-                            <label for="odometer">Odometer</label>
-                            <div class="range-slider-container">
-                                <input type="range" id="odometerSlider" min="0" max="200000" value="100000" class="range-slider">
-                                <div class="odometer-display">
-                                    <span class="range-label"><span id="odometerMin">0</span> - <span id="odometerMax">200000</span>+ km</span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Province Filter -->
-                        <div class="filter-group province-group">
-                            <label for="province">Province</label>
-                            <select id="province" class="filter-select">
-                                <option value="">All selected</option>
-                                <option value="Ontario">Ontario</option>
-                                <option value="Quebec">Quebec</option>
-                                <option value="Ontario">Manitoba</option>
-                                <option value="British Columbia">British Columbia</option>
-                                <option value="Alberta">Alberta</option>
-                                <option value="Ontario">Yukon</option>
-                                <option value="Ontario">Nunavut</option>
-                                <option value="Saskatchewan">Saskatchewan</option>
-                                <option value="Nova Scotia">Nova Scotia</option>
-                                <option value="Ontario">Northwest Territories</option>
-                                <option value="New Brunswick">New Brunswick</option>
-                                <option value="Newfoundland and Labrador">Newfoundland and Labrador</option>
-                                <option value="Prince Edward Island">Prince Edward Island</option>
-
-                            </select>
-                        </div>
-
-                        <!-- Sale Date Filter -->
-                        <div class="filter-group saledate-group">
-                            <label for="saleDate">Sale date</label>
-                            <select id="saleDate" class="filter-select">
-                                <option value="30">Last 30 days</option>
-                                <option value="60">Last 60 days</option>
-                                <option value="90">90 days</option>
-                                <option value="180">Last 180 days</option>
-                            </select>
-                        </div>
+                    <!-- ODOMETER INPUT -->
+                    <div class="form-group">
+                        <label for="odometer">Odometer Reading (km)</label>
+                        <input 
+                            type="number" 
+                            id="odometer" 
+                            name="odometer" 
+                            min="0" 
+                            max="999999" 
+                            required 
+                            placeholder="50000"
+                        >
+                        <small class="help-text">Enter the current odometer reading in kilometres</small>
                     </div>
 
-                    <!-- More Filters & Buttons Row -->
-                    <div class="filters-row filters-footer">
-                        <div class="more-filters-section">
-                            <button id="moreFiltersBtn" class="more-filters-link">More filters ▼</button>
-                        </div>
-                        <div class="filter-buttons">
-                            <button id="clearFilters" class="btn btn-secondary">Clear</button>
-                            <button id="showResults" class="btn btn-primary">Show results</button>
-                        </div>
+                    <!-- BUYING PRICE INPUT -->
+                    <div class="form-group">
+                        <label for="buyingPrice">Your Buying Price (Optional)</label>
+                        <input 
+                            type="number" 
+                            id="buyingPrice" 
+                            name="buyingPrice" 
+                            min="0" 
+                            max="999999" 
+                            placeholder="25000"
+                        >
+                        <small class="help-text">Enter the price you paid or plan to pay - we'll analyze if it's a good deal</small>
                     </div>
-                </div>
+
+                    <!-- SUBMIT BUTTON -->
+                    <button type="submit" class="btn btn-primary">Fetch Vehicle Data</button>
+                </form>
             </div>
 
             <!-- LOADING INDICATOR (hidden by default) -->
@@ -351,49 +86,85 @@
             <!-- SUCCESS MESSAGE (hidden by default) -->
             <div id="successMessage" class="alert alert-success" style="display: none;"></div>
 
-            <!-- RESULTS SECTION -->
-            <div id="resultsContainer" style="display: none;">
-                <!-- Market Guide Results -->
-                <div class="card" id="marketGuideResults">
-                    <h2>Showing results for the past</h2>
-                    <div id="statsContainer" class="stats-grid">
-                        <div class="stat-item">
-                            <div class="stat-label">Lowest price</div>
-                            <div class="stat-value" id="lowestPrice">-</div>
-                        </div>
-                        <div class="stat-item">
-                            <div class="stat-label">Average price</div>
-                            <div class="stat-value" id="averagePrice">-</div>
-                        </div>
-                        <div class="stat-item">
-                            <div class="stat-label">Highest price</div>
-                            <div class="stat-value" id="highestPrice">-</div>
-                        </div>
-                        <div class="stat-item">
-                            <div class="stat-label">Lowest kms</div>
-                            <div class="stat-value" id="lowestKms">-</div>
-                        </div>
-                        <div class="stat-item">
-                            <div class="stat-label">Average kms</div>
-                            <div class="stat-value" id="averageKms">-</div>
-                        </div>
-                        <div class="stat-item">
-                            <div class="stat-label">Highest kms</div>
-                            <div class="stat-value" id="highestKms">-</div>
-                        </div>
-                    </div>
-
-                    <h3>3 matching vehicles</h3>
-                    <div id="vehiclesTableContainer"></div>
+            <!-- VEHICLE DATA RESULTS (hidden by default) -->
+            <div id="resultContainer" style="display: none;">
+                <div class="card">
+                    <h2>Vehicle Data</h2>
+                    <div id="vehicleData" class="vehicle-data"></div>
                 </div>
+            </div>
 
-                <!-- Pricing Cards for Ontario and Quebec -->
-                <div id="pricingCardsContainer">
-                    <h2>Wholesale Pricing - Ontario & Quebec</h2>
-                    <div class="pricing-cards-grid">
-                        <div id="ontarioPricingCard" class="pricing-card"></div>
-                        <div id="quebecPricingCard" class="pricing-card"></div>
+            <!-- ⭐ VIN DECODE SECTION (hidden by default) ⭐ -->
+            <div id="vinDecodeContainer" style="display: none;">
+                <div class="card">
+                    <h2>🔍 Vehicle Information (VIN Decoded)</h2>
+                    <div id="vinDecodeContent" class="vin-decode"></div>
+                </div>
+            </div>
+
+            <!-- ⭐ AUCTION RECOMMENDATION SECTION (hidden by default) ⭐ -->
+            <div id="recommendationContainer" style="display: none;">
+                <div class="card">
+                    <h2>🎯 Auction Buy Recommendation</h2>
+                    <div class="form-group" style="margin-bottom: 20px;">
+                        <label for="provinceSelector">Select Province/Territory:</label>
+                        <select id="provinceSelector" class="province-selector">
+                            <option value="Alberta">Alberta</option>
+                            <option value="British Columbia">British Columbia</option>
+                            <option value="Manitoba">Manitoba</option>
+                            <option value="New Brunswick">New Brunswick</option>
+                            <option value="Newfoundland and Labrador">Newfoundland and Labrador</option>
+                            <option value="Northwest Territories">Northwest Territories</option>
+                            <option value="Nova Scotia">Nova Scotia</option>
+                            <option value="Nunavut">Nunavut</option>
+                            <option value="Ontario" selected>Ontario</option>
+                            <option value="Prince Edward Island">Prince Edward Island</option>
+                            <option value="Quebec">Quebec</option>
+                            <option value="Saskatchewan">Saskatchewan</option>
+                            <option value="Yukon">Yukon</option>
+                        </select>
+                        <small class="help-text">Choose your province to see auction recommendations based on local market conditions</small>
                     </div>
+                    <div id="recommendationContent" class="recommendation"></div>
+                </div>
+            </div>
+
+            <!-- ⭐ MARKET TRENDS SECTION (hidden by default) ⭐ -->
+            <div id="marketTrendsContainer" style="display: none;">
+                <div class="card">
+                    <h2>📈 Market Trends Analysis</h2>
+                    <div id="marketTrendsContent" class="market-trends"></div>
+                </div>
+            </div>
+
+            <!-- ⭐ REAL MARKET LISTINGS SECTION - NOW FIRST! (hidden by default) ⭐ -->
+            <div id="marketListingsContainer" style="display: none;">
+                <div class="card market-priority">
+                    <div class="priority-badge">✨ REAL MARKET DATA</div>
+                    <h2 style="color: #4CAF50;">🚗 Actual Cars For Sale Right Now</h2>
+                    <p style="color: #666; margin-bottom: 15px; font-size: 1.1rem;">Real listings from AutoTrader Canada showing what similar vehicles are <strong>actually selling for</strong> in the Canadian market.</p>
+                    <div id="marketSummary" class="market-summary" style="display: none;">
+                        <!-- Market statistics will be inserted here -->
+                    </div>
+                    <div id="marketListingsGrid" class="market-listings-grid">
+                        <!-- Market listings will be dynamically inserted here by JavaScript -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- ⭐ PRICING CARDS SECTION (hidden by default) ⭐ -->
+            <div id="pricingCardsContainer" style="display: none;">
+                <div class="card warning-card">
+                    <div class="warning-banner">
+                        <strong>⚠️ IMPORTANT: Book Values vs Real Market Prices</strong>
+                        <p>Blackbook values below are <strong>rough condition book values</strong> - NOT real market prices. Rough condition represents vehicles with visible wear and tear at the lower end of the pricing spectrum. See "Real Market Data" section above for actual asking prices.</p>
+                    </div>
+                </div>
+                
+                <h2 id="pricingCardsTitle">📊 Blackbook Reference Values (Rough Condition)</h2>
+                <p style="color: #888; margin-bottom: 20px; font-style: italic;">Raw rough condition book valuations across all 13 Canadian provinces. Scroll up to see real market prices.</p>
+                <div id="pricingCardsGrid" class="pricing-cards-grid">
+                    <!-- Pricing cards will be dynamically inserted here by JavaScript -->
                 </div>
             </div>
         </main>
