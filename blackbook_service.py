@@ -8,8 +8,8 @@ import base64
 class BlackbookService:
     VIN_PATTERN = re.compile(r'^[A-HJ-NPR-Z0-9]{17}$')
     
-    KM_TO_MILES = 0.621371  # Conversion factor
-    MILES_TO_KM = 1.60934   # Conversion factor
+    KM_TO_MILES = 0.621371
+    MILES_TO_KM = 1.60934
 
     def __init__(self):
         self.blackbook_id = os.getenv('BLACKBOOK_ID')
@@ -35,60 +35,6 @@ class BlackbookService:
             'Authorization': f'Basic {encoded_credentials}',
             'Content-Type': 'application/json'
         }
-
-    def get_schema_info(self) -> Dict[str, Any]:
-        try:
-            if not self.graphql_url:
-                return {
-                    'success': False,
-                    'error': 'GraphQL URL not configured'
-                }
-
-            headers = self._get_auth_headers()
-
-            introspection_query = """
-            query IntrospectionQuery {
-                __schema {
-                    queryType { name }
-                    types {
-                        name
-                        kind
-                        fields {
-                            name
-                            type {
-                                name
-                                kind
-                            }
-                        }
-                    }
-                }
-            }
-            """
-
-            response = requests.post(
-                self.graphql_url,
-                json={'query': introspection_query},
-                headers=headers,
-                timeout=15
-            )
-
-            if response.status_code == 200:
-                return {
-                    'success': True,
-                    'data': response.json()
-                }
-            else:
-                return {
-                    'success': False,
-                    'error': f'Schema introspection failed: {response.status_code}',
-                    'response': response.text
-                }
-
-        except Exception as e:
-            return {
-                'success': False,
-                'error': f'Error: {str(e)}'
-            }
 
     def test_credentials(self) -> Dict[str, Any]:
         try:
@@ -172,7 +118,6 @@ class BlackbookService:
                     'error': 'Odometer must be a positive number'
                 }
 
-            # Convert kilometres to miles for U.S.-based Blackbook API
             odometer_miles = self._convert_km_to_miles(odometer_km)
 
             headers = self._get_auth_headers()
@@ -331,12 +276,10 @@ class BlackbookService:
                     'error': 'Odometer must be a positive number'
                 }
             
-            # Convert kilometres to miles for U.S.-based Blackbook API
             odometer_miles = self._convert_km_to_miles(odometer_km)
 
             headers = self._get_auth_headers()
 
-            # Step 1: Get vehicle info from GraphQL (including auction/wholesale data)
             query = """
             query GetVehicleInfo($vin: String!) {
                 usedvehicles(vin: $vin) {
@@ -397,7 +340,6 @@ class BlackbookService:
 
             vehicle_info = vehicles[0]
 
-            # Step 2: Get pricing for all Canadian provinces
             provinces = [
                 'Alberta', 'British Columbia', 'Manitoba', 'New Brunswick',
                 'Newfoundland and Labrador', 'Northwest Territories', 'Nova Scotia',
@@ -410,7 +352,7 @@ class BlackbookService:
                 pricing = self._fetch_province_pricing(vin_upper, odometer_miles, province, headers)
                 
                 if not pricing.get('success'):
-                    return pricing  # Return error if any province fails
+                    return pricing
 
                 card = {
                     'province': province,
@@ -460,7 +402,6 @@ class BlackbookService:
                     'error': 'GraphQL URL not configured'
                 }
             
-            # Province code mapping for all Canadian provinces and territories
             province_codes = {
                 'Alberta': 'AB',
                 'British Columbia': 'BC',
@@ -541,13 +482,12 @@ class BlackbookService:
 
             pricing_data = vehicles[0]
 
-            # Return raw rough condition pricing from Blackbook
             return {
                 'success': True,
                 'adjusted_wholesale': pricing_data.get('adjusted_whole_rough'),
                 'adjusted_retail': pricing_data.get('adjusted_retail_rough'),
                 'adjusted_tradein': pricing_data.get('adjusted_tradein_rough'),
-                'raw_data': pricing_data  # Include all raw data
+                'raw_data': pricing_data
             }
 
         except Exception as e:
